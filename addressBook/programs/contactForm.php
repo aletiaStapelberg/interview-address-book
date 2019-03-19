@@ -1,13 +1,19 @@
 <script>
 	function validateNumberlength(num)
 	{
-		var c_number = document.getElementById('contact_number'+num).value
+		var c_number = document.getElementById('contact_number'+num).value;
 		if (c_number != '' && c_number.length != 10) {
-		    alert("Please enter a valid contact number.")
+		    alert("Please enter a valid contact number.");
 		}
 		if (c_number != '' && isNaN(c_number))
 		{
-			alert("A Valid contact number consist of only numbers.")
+			alert("A Valid contact number consist of only numbers.");
+		}
+		var numbers_exist = document.getElementById('contNr').value;
+		var num_array = numbers_exist.split(",");
+		if (num_array.indexOf(c_number) == 0)
+		{
+			alert("This contact number already exist for this contact");
 		}
 	}
 	function validateEmail(num)
@@ -16,6 +22,12 @@
 		if (e_address != '' && !(/^.+@.+\..+$/.test(e_address)))
 		{
 			alert("The email address you entered seems to be invalid.")
+		}
+		var email_exist = document.getElementById('emailA').value;
+		var email_array = email_exist.split(",");
+		if (email_array.indexOf(e_address) == 0)
+		{
+			alert("This email address already exist for this contact");
 		}
 	}
 </script>
@@ -50,6 +62,8 @@ if (isset($_GET['email_address']))
 else 
 	$emailAddress = '';
 
+$contactNumbers = '';
+$emailAddresses = '';
 if ($action == 'E' || $action == 'D' || $action == 'C')
 {
 	if($contactInfoId == ''){
@@ -70,6 +84,29 @@ if ($action == 'E' || $action == 'D' || $action == 'C')
 	    $firstName = $row['first_name'];
 	    $contactNumber = $row['contact_number'];
 	    $emailAddress = $row['email_address'];
+	}
+	if ($action == 'E' || $action == 'C')
+	{
+		
+		$qryAllContactInfoForContact = "SELECT contact_number,email_address FROM contacts_info WHERE contacts_id = '$contactId'";
+		$rsAllContactInfoForContact = mysqli_query($connM,$qryAllContactInfoForContact);
+		if (mysqli_num_rows($rsAllContactInfoForContact) > 0)
+		{
+			while($row = mysqli_fetch_assoc($rsAllContactInfoForContact)) {
+			   $contactNumber = $row['contact_number'];
+			   $emailAddress = $row['email_address'];
+			   if ($contactNumbers == '')
+			   		$contactNumbers = $contactNumber;
+			   else 
+					$contactNumbers = $contactNumbers.",".$contactNumber;
+			   if ($emailAddresses == '')
+			   		$emailAddresses = $emailAddress;
+			   else 
+					$emailAddresses = $emailAddresses.",".$emailAddress;	
+
+		   }
+		}
+		
 	}					
 }
 
@@ -87,7 +124,11 @@ if ($action == 'E' || $action == 'D' || $action == 'C')
 	print "</td></tr>";
 	print "</font>";
 	print "<tr>";
-	print "<td colspan='5'><input type='hidden' name='action' id='action' value=$action><input type='hidden' name='contactId' id='contactId' value=$contactId><input type='hidden' name='contactInfoId' id='contactInfoId' value=$contactInfoId></td>";
+	print "<td colspan='5'><input type='hidden' name='contNr' id='contNr' value=$contactNumbers>";
+	print "<input type='hidden' name='emailA' id='emailA' value=$emailAddresses>";
+	print "<input type='hidden' name='action' id='action' value=$action>";
+	print "<input type='hidden' name='contactId' id='contactId' value=$contactId>";
+	print "<input type='hidden' name='contactInfoId' id='contactInfoId' value=$contactInfoId></td>";
 	print "</tr>";
 	print "<tr>";
 	print "<td bgcolor='#C0C0C0'><p style='font: 14pt Garamond, Georgia, serif;color:#000000;weight:bold'>Surname</p></td>";
