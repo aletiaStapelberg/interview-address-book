@@ -7,14 +7,39 @@ $surname = $_POST['surname'];
 $first_name = $_POST['first_name'];
 $contact_number = $_POST['contact_number'];
 $email_address = $_POST['email_address'];
-$contact_number2 = $_POST['contact_number2'];
-$email_address2 = $_POST['email_address2'];
-$contact_number3 = $_POST['contact_number3'];
-$email_address3 = $_POST['email_address3'];
-$contact_number4 = $_POST['contact_number4'];
-$email_address4 = $_POST['email_address4'];
-$contact_number5 = $_POST['contact_number5'];
-$email_address5 = $_POST['email_address5'];
+if (isset($_POST['contact_number2']))
+	$contact_number2 = $_POST['contact_number2'];
+else 
+	$contact_number2 = '';
+if (isset($_POST['email_address2']))
+	$email_address2 = $_POST['email_address2'];
+else 
+	$email_address2 = '';
+if (isset($_POST['contact_number3']))
+	$contact_number3 = $_POST['contact_number3'];
+else 
+	$contact_number3 = '';
+if (isset($_POST['email_address3']))
+	$email_address3 = $_POST['email_address3'];
+else 
+	$email_address3 = '';
+if (isset($_POST['contact_number4']))
+	$contact_number4 = $_POST['contact_number4'];
+else 
+	$contact_number4 = '';
+if (isset($_POST['email_address4']))
+	$email_address4 = $_POST['email_address4'];
+else 
+	$email_address4 = '';
+if (isset($_POST['contact_number5']))
+	$contact_number5 = $_POST['contact_number5'];
+else 
+	$contact_number5 = '';
+if (isset($_POST['email_address5']))
+	$email_address5 = $_POST['email_address5'];
+else 
+	$email_address5 = '';
+
 
 if ($action == 'E' || $action == 'C')
 {
@@ -22,6 +47,7 @@ if ($action == 'E' || $action == 'C')
 	$rsCheck = mysqli_query($connM,$qryCheck);
 	if (mysqli_num_rows($rsCheck) > 0)
 	{
+		echo "Blah";
 		if ($contactInfoId == '')
 			$qryExist = "SELECT * FROM contacts_info WHERE contacts_id = '$contactId'";
 		else	
@@ -86,14 +112,16 @@ if ($action == 'E' || $action == 'C')
 		header('Location: front.php');
 	}
 	else {
+		echo "Here";
 		$qryContact = "UPDATE contacts
 							SET surname = '$surname',
-							    first_name = '$first_name',
-						WHERE id = $contactId";
+							    first_name = '$first_name'
+						WHERE id = '$contactId'";
+						echo $qryContact;
 		$rsContact = mysqli_query($connM,$qryContact);
 		$qryExist = "SELECT * FROM contacts_info WHERE contacts_id = '$contactId' AND id = '$contactInfoId'";
 		$rsExist = mysqli_query($connM,$qryExist);
-		if (mysqli_num_rows($rsExists) > 0)
+		if (mysqli_num_rows($rsExist) > 0)
 		{
 			$qryContactInfo = "UPDATE contacts_info
 								SET contact_number = '$contact_number',
@@ -194,6 +222,6 @@ else
 		}	
 	}
 	else 
-	{header('Location: front.php');}	
+	{echo "NOthing";header('Location: front.php');}	
 }
 ?>

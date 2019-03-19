@@ -11,7 +11,7 @@
 		}
 		var numbers_exist = document.getElementById('contNr').value;
 		var num_array = numbers_exist.split(",");
-		if (num_array.indexOf(c_number) == 0)
+		if (num != '' && c_number != '' && num_array.indexOf(c_number) == 0)
 		{
 			alert("This contact number already exist for this contact");
 		}
@@ -25,7 +25,7 @@
 		}
 		var email_exist = document.getElementById('emailA').value;
 		var email_array = email_exist.split(",");
-		if (email_array.indexOf(e_address) == 0)
+		if (num != '' && e_address != '' && email_array.indexOf(e_address) == 0)
 		{
 			alert("This email address already exist for this contact");
 		}
