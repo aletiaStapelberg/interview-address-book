@@ -19,40 +19,40 @@ $email_address5 = $_POST['email_address5'];
 if ($action == 'E' || $action == 'C')
 {
 	$qryCheck = "SELECT id FROM contacts WHERE id = '$contactId' AND surname = '$surname' AND first_name = '$first_name'";
-	$rsCheck = mysql_query($qryCheck,$connM);
-	if (mysql_num_rows($rsCheck) > 0)
+	$rsCheck = mysqli_query($connM,$qryCheck);
+	if (mysqli_num_rows($rsCheck) > 0)
 	{
 		if ($contactInfoId == '')
 			$qryExist = "SELECT * FROM contacts_info WHERE contacts_id = '$contactId'";
 		else	
 			$qryExist = "SELECT * FROM contacts_info WHERE contacts_id = '$contactId' AND id = '$contactInfoId'";
-		$rsExist = mysql_query($qryExist,$connM);
-		if (mysql_num_rows($rsExist) > 0)
+		$rsExist = mysqli_query($connM,$qryExist);
+		if (mysqli_num_rows($rsExist) > 0)
 		{
 			$qryContactInfo = "UPDATE contacts_info
 								SET contact_number = '$contact_number',
 								    email_address = '$email_address'
 							WHERE id = '$contactInfoId' AND contacts_id = '$contactId'";
-			$rsContactInfo = mysql_query($qryContactInfo,$connM);
+			$rsContactInfo = mysqli_query($connM,$qryContactInfo);
 			if ($contact_number2 != '' || $email_address2 != '')
 			{
 				$qryContactInfo2 = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number2','$email_address2','$contactId')";
-				$rsContactInfo2 = mysql_query($qryContactInfo2,$connM);
+				$rsContactInfo2 = mysqli_query($connM,$qryContactInfo2);
 			}
 			if ($contact_number3 != '' || $email_address3 != '')
 			{
 				$qryContactInfo3 = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number3','$email_address3','$contactId')";
-				$rsContactInfo3 = mysql_query($qryContactInfo3,$connM);
+				$rsContactInfo3 = mysqli_query($connM,$qryContactInfo3);
 			}
 			if ($contact_number4 != '' || $email_address4 != '')
 			{
 				$qryContactInfo4 = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number4','$email_address4','$contactId')";
-				$rsContactInfo4 = mysql_query($qryContactInfo4,$connM);
+				$rsContactInfo4 = mysqli_query($connM,$qryContactInfo4);
 			}
 			if ($contact_number5 != '' || $email_address5 != '')
 			{
 				$qryContactInfo5 = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number5','$email_address5','$contactId')";
-				$rsContactInfo5 = mysql_query($qryContactInfo5,$connM);
+				$rsContactInfo5 = mysqli_query($connM,$qryContactInfo5);
 			}
 		}
 		else
@@ -60,27 +60,27 @@ if ($action == 'E' || $action == 'C')
 			if ($contact_number != '' || $email_address != '')
 			{
 				$qryContactInfo = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number','$email_address','$contactId')";
-				$rsContactInfo = mysql_query($qryContactInfo,$connM);
+				$rsContactInfo = mysqli_query($connM,$qryContactInfo);
 			}
 			if ($contact_number2 != '' || $email_address2 != '')
 			{
 				$qryContactInfo2 = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number2','$email_address2','$contactId')";
-				$rsContactInfo2 = mysql_query($qryContactInfo2,$connM);
+				$rsContactInfo2 = mysqli_query($connM,$qryContactInfo2);
 			}
 			if ($contact_number3 != '' || $email_address3 != '')
 			{
 				$qryContactInfo3 = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number3','$email_address3','$contactId')";
-				$rsContactInfo3 = mysql_query($qryContactInfo3,$connM);
+				$rsContactInfo3 = mysqli_query($connM,$qryContactInfo3);
 			}
 			if ($contact_number4 != '' || $email_address4 != '')
 			{
 				$qryContactInfo4 = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number4','$email_address4','$contactId')";
-				$rsContactInfo4 = mysql_query($qryContactInfo4,$connM);
+				$rsContactInfo4 = mysqli_query($connM,$qryContactInfo4);
 			}
 			if ($contact_number5 != '' || $email_address5 != '')
 			{
 				$qryContactInfo5 = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number5','$email_address5','$contactId')";
-				$rsContactInfo5 = mysql_query($qryContactInfo5,$connM);
+				$rsContactInfo5 = mysqli_query($connM,$qryContactInfo5);
 			}
 		}	
 		header('Location: front.php');
@@ -90,43 +90,43 @@ if ($action == 'E' || $action == 'C')
 							SET surname = '$surname',
 							    first_name = '$first_name',
 						WHERE id = $contactId";
-		$rsContact = mysql_query($qryContact,$connM);
+		$rsContact = mysqli_query($connM,$qryContact);
 		$qryExist = "SELECT * FROM contacts_info WHERE contacts_id = '$contactId' AND id = '$contactInfoId'";
-		$rsExist = mysql_query($qryExist,$connM);
-		if (mysql_num_rows($rsExists) > 0)
+		$rsExist = mysqli_query($connM,$qryExist);
+		if (mysqli_num_rows($rsExists) > 0)
 		{
 			$qryContactInfo = "UPDATE contacts_info
 								SET contact_number = '$contact_number',
 								    email_address = '$email_address'
 							WHERE id = '$contactInfoId' AND contacts_id = '$contactId'";
-			$rsContactInfo = mysql_query($qryContactInfo,$connM);
+			$rsContactInfo = mysqli_query($connM,$qryContactInfo);
 		}
 		else
 		{
 			if ($contact_number != '' || $email_address != '')
 			{
 				$qryContactInfo = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number','$email_address','$contactId')";
-				$rsContactInfo = mysql_query($qryContactInfo,$connM);
+				$rsContactInfo = mysqli_query($connM,$qryContactInfo);
 			}
 			if ($contact_number2 != '' || $email_address2 != '')
 			{
 				$qryContactInfo2 = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number2','$email_address2','$contactId')";
-				$rsContactInfo2 = mysql_query($qryContactInfo2,$connM);
+				$rsContactInfo2 = mysqli_query($connM,$qryContactInfo2);
 			}
 			if ($contact_number3 != '' || $email_address3 != '')
 			{
 				$qryContactInfo3 = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number3','$email_address3','$contactId')";
-				$rsContactInfo3 = mysql_query($qryContactInfo3,$connM);
+				$rsContactInfo3 = mysqli_query($connM,$qryContactInfo3);
 			}
 			if ($contact_number4 != '' || $email_address4 != '')
 			{
 				$qryContactInfo4 = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number4','$email_address4','$contactId')";
-				$rsContactInfo4 = mysql_query($qryContactInfo4,$connM);
+				$rsContactInfo4 = mysqli_query($connM,$qryContactInfo4);
 			}
 			if ($contact_number5 != '' || $email_address5 != '')
 			{
 				$qryContactInfo5 = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number5','$email_address5','$contactId')";
-				$rsContactInfo5 = mysql_query($qryContactInfo5,$connM);
+				$rsContactInfo5 = mysqli_query($connM,$qryContactInfo5);
 			}	
 		}
 		header('Location: front.php');
@@ -136,17 +136,17 @@ if ($action == 'E' || $action == 'C')
 elseif($action == 'D')
 {
 	$qryDelete = "DELETE FROM contacts_info WHERE id = '$contactInfoId' AND contacts_id = '$contactId'";
-	$rsDelete = mysql_query($qryDelete,$connM);
+	$rsDelete = mysqli_query($connM,$qryDelete);
 	$checkQuery = "SELECT id FROM contacts_info WHERE contacts_id = '$contactId'";
-	$rsCheck = mysql_query($checkQuery,$connM);
-	if (mysql_num_rows($rsCheck) > 0)
+	$rsCheck = mysqli_query($connM,$checkQuery);
+	if (mysqli_num_rows($rsCheck) > 0)
 	{
 		header('Location: front.php');
 		
 	}
 	else {
 		$qryDeleteContact = "DELETE FROM contacts WHERE id = '$contactId'";
-		$rsDeleteContact = mysql_query($qryDeleteContact,$connM);
+		$rsDeleteContact = mysqli_query($connM,$qryDeleteContact);
 		header('Location: front.php');
 	}
 }
@@ -157,36 +157,38 @@ else
 							(surname,first_name)
 							VALUES
 							('$surname','$first_name')";
-		$rsContact	 = mysql_query($qryContact,$connM);	
+		$rsContact	 = mysqli_query($connM,$qryContact);	
 		$qryId = "SELECT id FROM contacts WHERE surname = '$surname' AND first_name = '$first_name'";	
-		$rsId = mysql_query($qryId,$connM);
-		if (mysql_num_rows($rsId) > 0)
+		$rsId = mysqli_query($connM,$qryId);
+		if (mysqli_num_rows($rsId) > 0)
 		{
-			$id = trim(mysql_result($rsId,0,"id"));
+			$row = mysqli_fetch_assoc($rsId);
+		    $id = $row['id'];
+
 			if ($contact_number != '' || $email_address != '')
 			{
 				$qryContactsInfo = "INSERT INTO contacts_info (contacts_id,contact_number,email_address) VALUES ('$id','$contact_number','$email_address')";
-				$rsContactsInfo = mysql_query($qryContactsInfo,$connM);
+				$rsContactsInfo = mysqli_query($connM,$qryContactsInfo);
 			}
 			if ($contact_number2 != '' || $email_address2 != '')
 			{
 				$qryContactInfo2 = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number2','$email_address2','$id')";
-				$rsContactInfo2 = mysql_query($qryContactInfo2,$connM);
+				$rsContactInfo2 = mysqli_query($connM,$qryContactInfo2);
 			}
 			if ($contact_number3 != '' || $email_address3 != '')
 			{
 				$qryContactInfo3 = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number3','$email_address3','$id')";
-				$rsContactInfo3 = mysql_query($qryContactInfo3,$connM);
+				$rsContactInfo3 = mysqli_query($connM,$qryContactInfo3);
 			}
 			if ($contact_number4 != '' || $email_address4 != '')
 			{
 				$qryContactInfo4 = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number4','$email_address4','$id')";
-				$rsContactInfo4 = mysql_query($qryContactInfo4,$connM);
+				$rsContactInfo4 = mysqli_query($connM,$qryContactInfo4);
 			}
 			if ($contact_number5 != '' || $email_address5 != '')
 			{
 				$qryContactInfo5 = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number5','$email_address5','$id')";
-				$rsContactInfo5 = mysql_query($qryContactInfo5,$connM);
+				$rsContactInfo5 = mysqli_query($connM,$qryContactInfo5);
 			}
 			header('Location: front.php');
 		}	

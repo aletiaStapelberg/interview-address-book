@@ -20,15 +20,15 @@ if (mysqli_connect_error())
 else
 {
 	$mysqli->close();
-	$connM = mysql_connect("127.0.0.1","root","");
+	$connM = mysqli_connect("127.0.0.1","root","");
 }
 
-$dbdbM = mysql_select_db("interview");
+$dbdbM = mysqli_select_db($connM,"interview");
 
 if (!$dbdbM) 
 {
 	$errMsg = "Connection to Interview failed";
-	$errMsg.= "<br>" . mysql_error();
+	$errMsg.= "<br>" . mysqli_error($connM);
 	print "<META HTTP-EQUIV=Refresh CONTENT=\"0; URL=err_page.php?errMsg=$errMsg\">";
 	exit; 
 }

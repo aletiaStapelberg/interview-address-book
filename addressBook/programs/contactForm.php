@@ -23,13 +23,33 @@
 include("../db.inc");
 print "<form name='frmContacts' action='contactFormSave.php' method='POST'>";
 print "<table width='100%' cellpadding='1' cellspacing='1'>";
-$contactId = $_GET['contactId'];
+if (isset($_GET['contactId']))
+	$contactId = $_GET['contactId'];
+else 
+	$contactId = '';
+
 $action = $_GET['action'];
-$contactInfoId = $_GET['contactInfoId'];
-$surname = $_GET['surname'];
-$firstName = $_GET['first_name'];
-$contactNumber = $_GET['contact_number'];
-$emailAddress = $_GET['email_address'];
+if(isset($_GET['contactInfoId']))
+	$contactInfoId = $_GET['contactInfoId'];
+else 
+	$contactInfoId = '';
+if (isset($_GET['surname']))
+	$surname = $_GET['surname'];
+else 
+	$surname = '';
+if (isset($_GET['first_name']))
+	$firstName = $_GET['first_name'];
+else 
+	$firstName = '';
+if (isset($_GET['contact_number']))
+	$contactNumber = $_GET['contact_number'];
+else 
+	$contactNumber = '';
+if (isset($_GET['email_address']))
+	$emailAddress = $_GET['email_address'];
+else 
+	$emailAddress = '';
+
 if ($action == 'E' || $action == 'D' || $action == 'C')
 {
 	if($contactInfoId == ''){
@@ -42,16 +62,16 @@ if ($action == 'E' || $action == 'D' || $action == 'C')
 					LEFT JOIN contacts_info ON (contacts.id = contacts_info.contacts_id) 
 				   	WHERE contacts.id = '$contactId' AND contacts_info.id = '$contactInfoId'";
 	}			
-	$rsContact  = mysql_query($qryContact,$connM);
-	if (mysql_num_rows($rsContact) > 0)
+	$rsContact  = mysqli_query($connM,$qryContact);
+	if (mysqli_num_rows($rsContact) > 0)
 	{
-		$firstName = trim(mysql_result($rsContact,0,"first_name"));
-		$surname = trim(mysql_result($rsContact,0,"surname"));
-		$contactNumber = trim(mysql_result($rsContact,0,"contact_number"));
-		$emailAddress = trim(mysql_result($rsContact,0,"email_address"));
+		$row = mysqli_fetch_assoc($rsContact);
+	    $surname = $row['surname'];
+	    $firstName = $row['first_name'];
+	    $contactNumber = $row['contact_number'];
+	    $emailAddress = $row['email_address'];
 	}					
 }
-
 
 	print "";
 	print "<tr>";
@@ -60,7 +80,7 @@ if ($action == 'E' || $action == 'D' || $action == 'C')
 		print "<p style='font: 20pt Garamond, Georgia, serif;color:#000000;weight:bold'>Edit Contact</p>";
 	elseif ($action == 'D')
 		print "<p style='font: 20pt Garamond, Georgia, serif;color:#000000;weight:bold'>Delete Contact</p>";
-	elseif ($action == 'D')
+	elseif ($action == 'C')
 		print "<p style='font: 20pt Garamond, Georgia, serif;color:#000000;weight:bold'>Add new Contact Detail</p>";		
 	else
 		print "<p style='font: 20pt Garamond, Georgia, serif;color:#000000;weight:bold'>Add new Contact</p>";
@@ -86,30 +106,30 @@ if ($action == 'E' || $action == 'D' || $action == 'C')
 	if($action != 'E' && $action != 'D'){
 	print "<tr>";
 	print "<td bgcolor='#C0C0C0'><p style='font: 14pt Garamond, Georgia, serif;color:#000000;weight:bold'>Contact Number</p></td>";
-	print "<td><input type='text' name='contact_number2' id='contact_number2' value='$contactNumber2' size='40' onBlur='validateNumberlength(2);'></td>";
+	print "<td><input type='text' name='contact_number2' id='contact_number2' value='' size='40' onBlur='validateNumberlength(2);'></td>";
 	print "<td bgcolor='#C0C0C0'><p style='font: 14pt Garamond, Georgia, serif;color:#000000;weight:bold'>E-mail address</p></td>";
-	print "<td><input type='text' name='email_address2' id='email_address2' value='$emailAddress2' size='40' onBlur='validateEmail(2);'></td>";
+	print "<td><input type='text' name='email_address2' id='email_address2' value='' size='40' onBlur='validateEmail(2);'></td>";
 	print "<td></td>";
 	print "</tr>";
 	print "<tr>";
 	print "<td bgcolor='#C0C0C0'><p style='font: 14pt Garamond, Georgia, serif;color:#000000;weight:bold'>Contact Number</p></td>";
-	print "<td><input type='text' name='contact_number3' id='contact_number3' value='$contactNumber3' size='40' onBlur='validateNumberlength(3);'></td>";
+	print "<td><input type='text' name='contact_number3' id='contact_number3' value='' size='40' onBlur='validateNumberlength(3);'></td>";
 	print "<td bgcolor='#C0C0C0'><p style='font: 14pt Garamond, Georgia, serif;color:#000000;weight:bold'>E-mail address</p></td>";
-	print "<td><input type='text' name='email_address3' id='email_address3' value='$emailAddress3' size='40' onBlur='validateEmail(3);'></td>";
+	print "<td><input type='text' name='email_address3' id='email_address3' value='' size='40' onBlur='validateEmail(3);'></td>";
 	print "<td></td>";
 	print "</tr>";
 	print "<tr>";
 	print "<td bgcolor='#C0C0C0'><p style='font: 14pt Garamond, Georgia, serif;color:#000000;weight:bold'>Contact Number</p></td>";
-	print "<td><input type='text' name='contact_number4' id='contact_number4' value='$contactNumber4' size='40' onBlur='validateNumberlength(4);'></td>";
+	print "<td><input type='text' name='contact_number4' id='contact_number4' value='' size='40' onBlur='validateNumberlength(4);'></td>";
 	print "<td bgcolor='#C0C0C0'><p style='font: 14pt Garamond, Georgia, serif;color:#000000;weight:bold'>E-mail address</p></td>";
-	print "<td><input type='text' name='email_address4' id='email_address4' value='$emailAddress4' size='40' onBlur='validateEmail(4);'></td>";
+	print "<td><input type='text' name='email_address4' id='email_address4' value='' size='40' onBlur='validateEmail(4);'></td>";
 	print "<td></td>";
 	print "</tr>";
 	print "<tr>";
 	print "<td bgcolor='#C0C0C0'><p style='font: 14pt Garamond, Georgia, serif;color:#000000;weight:bold'>Contact Number</p></td>";
-	print "<td><input type='text' name='contact_number5' id='contact_number5' value='$contactNumber5' size='40' onBlur='validateNumberlength(5);'></td>";
+	print "<td><input type='text' name='contact_number5' id='contact_number5' value='' size='40' onBlur='validateNumberlength(5);'></td>";
 	print "<td bgcolor='#C0C0C0'><p style='font: 14pt Garamond, Georgia, serif;color:#000000;weight:bold'>E-mail address</p></td>";
-	print "<td><input type='text' name='email_address5' id='email_address5' value='$emailAddress5' size='40' onBlur='validateEmail(5);'></td>";
+	print "<td><input type='text' name='email_address5' id='email_address5' value='' size='40' onBlur='validateEmail(5);'></td>";
 	print "<td></td>";
 	print "</tr>";
 	}
