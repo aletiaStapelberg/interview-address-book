@@ -68,7 +68,7 @@ if (mysql_num_rows($rsContacts) == 0)
 			$colours = "bgcolor='#FFFFFF'";	
 		}
 		print "<tr $colours>";
-		print "<td>$surname</td>";
+		print "<td>$surname<span style='float:right'><a href='contactForm.php?action=C&contactId=".$contacts_id."&contactInfoId=".$contacts_info_id."'>Add More Contact Info</a></span></td>";
 		print "<td>$firstName</td>";
 		print "<td>$contactNumber</td>";
 		print "<td>$emailAddress</td>";

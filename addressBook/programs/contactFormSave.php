@@ -16,7 +16,7 @@ $email_address4 = $_POST['email_address4'];
 $contact_number5 = $_POST['contact_number5'];
 $email_address5 = $_POST['email_address5'];
 
-if ($action == 'E')
+if ($action == 'E' || $action == 'C')
 {
 	$qryCheck = "SELECT id FROM contacts WHERE id = '$contactId' AND surname = '$surname' AND first_name = '$first_name'";
 	$rsCheck = mysql_query($qryCheck,$connM);
@@ -34,6 +34,26 @@ if ($action == 'E')
 								    email_address = '$email_address'
 							WHERE id = '$contactInfoId' AND contacts_id = '$contactId'";
 			$rsContactInfo = mysql_query($qryContactInfo,$connM);
+			if ($contact_number2 != '' || $email_address2 != '')
+			{
+				$qryContactInfo2 = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number2','$email_address2','$contactId')";
+				$rsContactInfo2 = mysql_query($qryContactInfo2,$connM);
+			}
+			if ($contact_number3 != '' || $email_address3 != '')
+			{
+				$qryContactInfo3 = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number3','$email_address3','$contactId')";
+				$rsContactInfo3 = mysql_query($qryContactInfo3,$connM);
+			}
+			if ($contact_number4 != '' || $email_address4 != '')
+			{
+				$qryContactInfo4 = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number4','$email_address4','$contactId')";
+				$rsContactInfo4 = mysql_query($qryContactInfo4,$connM);
+			}
+			if ($contact_number5 != '' || $email_address5 != '')
+			{
+				$qryContactInfo5 = "INSERT INTO contacts_info (contact_number,email_address,contacts_id) VALUES ('$contact_number5','$email_address5','$contactId')";
+				$rsContactInfo5 = mysql_query($qryContactInfo5,$connM);
+			}
 		}
 		else
 		{
